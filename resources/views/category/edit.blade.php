@@ -50,7 +50,7 @@
         </div>
         <div class="col-md-6">
             <div class="well">
-                {!! Form::open(['route' => 'category.store']) !!}
+                {!! Form::model($category, ['route' => ['category.update', $category->id] ]) !!}
                     <div class="form-group">
                         {!! Form::label('name', 'Nome da Categoria', ['class' => 'control-label']) !!}
                         {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) !!}

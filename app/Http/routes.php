@@ -1,8 +1,14 @@
 <?php
 
+Route::group(['prefix' => 'categorias', 'middleware' => 'auth'], function()
+{
+    Route::get('',                  ['as' => 'category.index',      'uses' => 'CategoryController@index']);
+    Route::post('salvar',           ['as' => 'category.store',      'uses' => 'CategoryController@store']);
+    Route::get('{id}/editar',       ['as' => 'category.edit',       'uses' => 'CategoryController@edit']);
+    Route::post('{id}/atualizar',   ['as' => 'category.update',     'uses' => 'CategoryController@update']);
+    Route::get('{id}/remover',      ['as' => 'category.destroy',    'uses' => 'CategoryController@destroy']);
+});
 
-
-Route::get('categorias', ['middleware' => 'auth', 'uses' => 'CategoryController@index']);
 
 
 
