@@ -1,23 +1,29 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest as Request;
+use App\Dave\Repositories\ICategoryRepository as Repository;
 
 class CategoryController extends Controller {
 
+    protected $repository;
+
+    function __construct(Repository $repository)
+    {
+        $this->repository = $repository;
+    }
+
 	public function index()
 	{
-        $categories = \App\Category::paginate(6);
+        $search = \Request::get('search');
 
-		return view('category.index')->with('categories', $categories);
+        $categories = $this->repository->categories($search);
+
+		return view('category.index')->with(compact('categories', 'search'));
 	}
 
     public function store(Request $request)
     {
-        $category = new \App\Category();
-
-        $category->name = $request->get('name');
-
-        $result = $category->save();
+        $result = $this->repository->store($request->all());
 
         if(!$result)
         {
@@ -29,20 +35,18 @@ class CategoryController extends Controller {
 
     public function edit($id)
     {
-        $category = \App\Category::find($id);
+        $search = \Request::get('search');
 
-        $categories = \App\Category::paginate(6);
+        $category = $this->repository->show($id);
 
-        return view('category.edit')->with(compact('category', 'categories'));
+        $categories = $this->repository->categories($search);
+
+        return view('category.edit')->with(compact('category', 'categories', 'search'));
     }
 
     public function update(Request $request, $id)
     {
-        $category = \App\Category::find($id);
-
-        $category->name = $request->get('name');
-
-        $result = $category->save();
+        $result = $this->repository->update($request->all(), $id);
 
         if(!$result)
         {
@@ -54,9 +58,7 @@ class CategoryController extends Controller {
 
     public function destroy($id)
     {
-        $category = \App\Category::find($id);
-
-        $result = $category->delete();
+        $result = $this->repository->destroy($id);
 
         if(!$result)
         {

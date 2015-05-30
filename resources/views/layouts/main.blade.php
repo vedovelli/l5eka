@@ -263,10 +263,13 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="{!! route('dashboard.index') !!}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="/categorias"><i class="fa fa-list fa-fw"></i> Categorias</a>
+                            <a href="{!! route('category.index') !!}"><i class="fa fa-list fa-fw"></i> Categorias</a>
+                        </li>
+                        <li>
+                            <a href="{!! route('project.index') !!}"><i class="fa fa-files-o fa-fw"></i> Projetos</a>
                         </li>
                     </ul>
                 </div>
@@ -293,6 +296,7 @@
     </div>
     <!-- /#wrapper -->
 
+    @section('scripts')
     <!-- jQuery -->
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -304,6 +308,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/js/sb-admin-2.js"></script>
+    @show
 
     @if ( Config::get('app.debug') )
       <script type="text/javascript">

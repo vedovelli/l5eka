@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddSlugToCategories extends Migration {
+class AddSoftDeleteToCategories extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -14,7 +14,7 @@ class AddSlugToCategories extends Migration {
 	{
 		Schema::table('categories', function(Blueprint $table)
 		{
-			$table->string('slug', 155)->after('name');
+			$table->softDeletes();
 		});
 	}
 
@@ -25,9 +25,9 @@ class AddSlugToCategories extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('categories', function(Blueprint $table)
+		Schame::table('categories', function(Blueprint $table)
 		{
-			$table->dropColumn('slug');
+			$table->dropColumn('deleted_at');
 		});
 	}
 
