@@ -1,3 +1,16 @@
+/**
+* Dave Brubeck related css
+*/
+.dave-project-card
+{
+    padding: 10px;
+    background-color: #f4f4f4;
+    height: 80px;
+    border: #ccc 1px solid;
+    margin: 0 10px 20px 10px;
+    border-radius: 6px;
+}
+
 /*!
  * Start Bootstrap - SB Admin 2 Bootstrap Admin Theme (http://startbootstrap.com)
  * Code licensed under the Apache License v2.0.

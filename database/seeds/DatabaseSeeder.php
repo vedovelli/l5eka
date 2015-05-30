@@ -15,9 +15,28 @@ class DatabaseSeeder extends Seeder {
 		Model::unguard();
 
 		// $this->call('UserTableSeeder');
-		$this->call('CategoryTableSeeder');
+		// $this->call('CategoryTableSeeder');
+		$this->call('ProjectTableSeeder');
 	}
 
+}
+
+class ProjectTableSeeder extends Seeder
+{
+	public function run()
+	{
+		$faker = \Faker\Factory::create();
+
+		$i=0;
+		while($i < 15)
+		{
+			$p = new \App\Project();
+			$p->name = $faker->text;
+			$p->description = $faker->paragraph;
+			$p->save();
+			$i++;
+		}
+	}
 }
 
 class UserTableSeeder extends Seeder

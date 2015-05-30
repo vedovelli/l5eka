@@ -29,10 +29,6 @@ Route::group(['middleware' => 'auth'], function(){
 /**
 * Controller
 * Views
-* Request
-* Repositorio
-* Tabelas DB
-* Model
 */
 
 
