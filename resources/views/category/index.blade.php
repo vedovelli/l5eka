@@ -56,7 +56,7 @@
 
         </div>
         <div class="col-md-6">
-            <div class="well">
+            <div class="well" id="vue">
                 {!! Form::open(['route' => 'category.store']) !!}
                     @include('category.partials.form')
                 {!! Form::close() !!}
