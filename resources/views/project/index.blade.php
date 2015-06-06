@@ -11,6 +11,7 @@
     @include('partials.alerts')
 
     @foreach(array_chunk($projects->items(), 3) as $projectChunk)
+    
     <div class="row">
         @foreach($projectChunk as $project)
         <div class="col-md-4">
