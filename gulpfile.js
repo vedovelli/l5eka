@@ -4,14 +4,14 @@ require('laravel-elixir-livereload');
 
 elixir(function(mix)
 {
-    // mix.scripts([
-    //     '/../bower_components/jquery/dist/jquery.js',
-    //     '/../bower_components/bootstrap/dist/js/bootstrap.js',
-    //     '/../bower_components/metisMenu/dist/metisMenu.js',
-    //     '/../bower_components/select2/select2.js',
-    //     '/../bower_components/select2/select2_locale_pt-BR.js',
-    //     'sb-admin-2.js',
-    // ], 'public/js/vendor.js');
+    mix.scripts([
+        '/../bower_components/jquery/dist/jquery.js',
+        '/../bower_components/bootstrap/dist/js/bootstrap.js',
+        '/../bower_components/metisMenu/dist/metisMenu.js',
+        '/../bower_components/select2/select2.js',
+        '/../bower_components/select2/select2_locale_pt-BR.js',
+        'sb-admin-2.js',
+    ], 'public/js/vendor.js');
 
     mix.scripts('app.js', 'public/js/app.js');
 
