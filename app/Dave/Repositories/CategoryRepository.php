@@ -16,16 +16,6 @@ class CategoryRepository implements ICategoryRepository
         return $categories;
     }
 
-    public function categoriesForSelect()
-    {
-        // array formatado para algo que o Form::select() espera
-    }
-
-    public function categoriesWithProject()
-    {
-        // array formatado para algo que o Form::select() espera
-    }
-
     public function store($input)
     {
         $category = new Category();
@@ -60,6 +50,18 @@ class CategoryRepository implements ICategoryRepository
         $category = $this->show($id);
 
         $result = $category->delete();
+
+        return $result;
+    }
+
+    public function categoriesForSelect()
+    {
+        $categories = Category::all();
+        $result = array();
+
+        foreach ($categories as $key => $value) {
+            $result[$value->id] = $value->name;
+        }
 
         return $result;
     }

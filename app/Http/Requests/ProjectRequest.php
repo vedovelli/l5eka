@@ -22,7 +22,11 @@ class ProjectRequest extends Request {
 	public function rules()
 	{
 		return [
-			'name' => 'required|min:3'
+			'name' => 'required',
+			'owner' => 'required',
+			'categories' => 'required',
+			'users' => 'required',
+			'description' => 'required',
 		];
 	}
 
@@ -30,7 +34,10 @@ class ProjectRequest extends Request {
 	{
 		return [
 			'name.required' => 'Nome é obrigatório',
-			'name.min' => 'Nome precisa ter pelo menos 3 caracteres',
+			'owner.required' => 'Líder é obrigatório',
+			'categories.required' => 'Categorias é obrigatório',
+			'users.required' => 'Membros é obrigatório',
+			'description.required' => 'Descrição é obrigatória',
 		];
 	}
 

@@ -9,19 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <title>@yield('page_title') Dave Brubeck</title>
+    <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,7 +39,7 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
+                {{-- <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
@@ -238,19 +227,19 @@
                         </li>
                     </ul>
                     <!-- /.dropdown-alerts -->
-                </li>
+                </li> --}}
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="{!! route('account.index') !!}"><i class="fa fa-user fa-fw"></i> Sua Conta</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="{!! route('account.password') !!}"><i class="fa fa-lock fa-fw"></i> Trocar Senha</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="auth/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -263,13 +252,16 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="{!! route('dashboard.index') !!}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="{!! route('dashboard.index') !!}"><i class="fa fa-dashboard fa-fw"></i> Dashboard 
+                                @if($selectItem == 'dashboard') * @endif</a>
                         </li>
                         <li>
-                            <a href="{!! route('category.index') !!}"><i class="fa fa-list fa-fw"></i> Categorias</a>
+                            <a href="{!! route('category.index') !!}"><i class="fa fa-list fa-fw"></i> Categorias 
+                                @if($selectItem == 'categories') * @endif</a>
                         </li>
                         <li>
-                            <a href="{!! route('project.index') !!}"><i class="fa fa-files-o fa-fw"></i> Projetos</a>
+                            <a href="{!! route('project.index') !!}"><i class="fa fa-files-o fa-fw"></i> Projetos 
+                                @if($selectItem == 'projects') * @endif</a>
                         </li>
                     </ul>
                 </div>
@@ -297,17 +289,8 @@
     <!-- /#wrapper -->
 
     @section('scripts')
-    <!-- jQuery -->
-    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="/bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="/js/sb-admin-2.js"></script>
+    <script src="{!! asset('js/vendor.js') !!}"></script>
+    <script src="{!! elixir('js/app.js') !!}"></script>
     @show
 
     @if ( Config::get('app.debug') )

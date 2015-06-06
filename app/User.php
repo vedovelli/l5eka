@@ -31,4 +31,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+	public function getCreatedAtAttribute($value)
+	{
+		return date('d/m/Y H:i:s', strtotime($value));
+	}
+
+	public function project()
+	{
+		return $this->hasMany('App\Project');
+	}
+
+	public function projects()
+	{
+		return $this->hasMany('App\Project');
+	}
+
 }

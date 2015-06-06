@@ -27,11 +27,14 @@ class ProjectTableSeeder extends Seeder
 	{
 		$faker = \Faker\Factory::create();
 
+		\DB::table('projects')->truncate();
+
 		$i=0;
 		while($i < 15)
 		{
 			$p = new \App\Project();
 			$p->name = $faker->text;
+			$p->user_id = 1;
 			$p->description = $faker->paragraph;
 			$p->save();
 			$i++;

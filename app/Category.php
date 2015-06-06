@@ -8,4 +8,9 @@ class Category extends Model {
 	use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
+    public function projects()
+    {
+        return $this->belongsToMany('App\Project');
+    }
 }

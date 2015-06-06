@@ -36,6 +36,8 @@
     "morrisjs": "~0.5.1",
     "datatables-responsive": "~1.0.3",
     "bootstrap-social": "~4.8.0",
-    "flot.tooltip": "~0.8.4"
+    "flot.tooltip": "~0.8.4",
+    "select2": "~4.0.0",
+    "select2-bootstrap-css": "~1.4.6"
   }
 }

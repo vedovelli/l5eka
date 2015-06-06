@@ -1,4 +1,8 @@
-@extends('layouts.main')
+@extends('layouts.main', ['selectItem' => 'categories'])
+
+@section('page_title')
+Gerenciamento de Categorias - 
+@stop
 
 @section('content')
 
@@ -66,20 +70,7 @@
 
     @section('scripts')
     @parent
-    <script>
-    $(document).ready(function()
-    {
-        $('#gridCategorias').on('click', '.dave-btn-excluir', function(event)
-        {
-            var confirm = window.confirm('Tem certeza que deseja excluir a categoria?');
-
-            if(!confirm)
-            {
-                event.preventDefault();
-            }
-        });
-    });
-    </script>
+    <script src="{!! elixir('js/categories.js') !!}"></script>
     @stop
 
 @stop
