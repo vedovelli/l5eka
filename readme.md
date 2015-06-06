@@ -16,12 +16,17 @@ Altere o arquivo /database/seeds/DatabaseSeeder.php e adicione um usuário seu. 
 
 **Em caso de duvidas** use nosso fórum.
 
+##Bower
+O Bower é usado para instalar dependência de interface (Bootstrap, jQuery, Select2) e seu arquivo de configuração (resources/assets/bower.json) já possui a referencia a todas as dependências do projeto. Basta navegar com seu Terminal até /resources/assets e rodar `bower install`. Caso lhe seja perguntado qual versão do plugin Select2 deve ser utilziada, escolha a opção 1, que é a que está configurada no projeto.
+
+O próximo passo é concatenar os arquivos com o Elixir (ver abaixo).
+
 ##Elixir
-Para o uso do Livereload, que é o único recurso Elixir utilizado na aula 2, vá à pasta raiz do projeto utilizando o terminal e digite `npm install` (assume-se aqui que você tenha instalado o Node e o Npm).
+Para a instalação do Elixir,  vá à pasta raiz do projeto utilizando o terminal e digite `npm install` (assume-se aqui que você tenha instalado o Node e o Npm).
 
 Já para o [Livereload para Elixir](https://www.npmjs.com/package/laravel-elixir-livereload) basta seguir as instruções de instalação na página do módulo.
 
-Finalmente, caso ainda não tenha o Gulp, basta executar `npm install gulp` e em seguida à instalação rodar `gulp watch`. Pronto: não será mais necessário pressionar F5 para atualizar a página (exceto em caso de erros).
+Finalmente, caso ainda não tenha o Gulp, basta executar `npm install gulp` e em seguida à instalação rodar `gulp watch`. Isso fará diversas coisas: concatenará os arquivos JS e CSS em um único arquivo para cada tipo e os acondicionará na pasta /public/js e /public/css. Por fim, em alguns casos, uma versão será criada para dar bypass no cache.
 
 ## Sobre o curso
 
