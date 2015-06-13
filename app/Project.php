@@ -11,6 +11,11 @@ class Project extends Model {
         return $this->belongsTo('App\User', 'user_id');
     }
 
+    public function sections()
+    {
+        return $this->hasMany('App\Section');
+    }
+
     public function members()
     {
         return $this->belongsToMany('App\User');

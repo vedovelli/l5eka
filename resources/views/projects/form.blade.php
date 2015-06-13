@@ -17,12 +17,12 @@ Criar novo projeto -
     @if(is_null($project))
     {!! Form::open(['route' => 'project.store']) !!}
     @else
-    {!! Form::model($project, []) !!}
+    {!! Form::model($project, ['route' => ['project.update', $project->id] ]) !!}
     @endif
 
     <div class="form-group">
         {!! Form::label('owner', 'Líder do Projeto', ['class' => 'control-label']) !!}
-        {!! Form::select('owner', ['' => ''] + $usersForSelect, null, ['class' => 'form-control', 'id' => 'owner', 'placeholder' => 'Selecionar um líder para o projeto']) !!}
+        {!! Form::select('owner', ['' => ''] + $usersForSelect, $owner, ['class' => 'form-control', 'id' => 'owner', 'placeholder' => 'Selecionar um líder para o projeto']) !!}
     </div>
 
     <div class="form-group">
@@ -32,12 +32,12 @@ Criar novo projeto -
 
     <div class="form-group">
         {!! Form::label('categories', 'Categorias', ['class' => 'control-label']) !!}
-        {!! Form::select('categories[]', $categoriesForSelect, null, ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'categories', 'placeholder' => 'Selecionar uma ou mais categorias']) !!}
+        {!! Form::select('categories[]', $categoriesForSelect, $categories, ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'categories', 'placeholder' => 'Selecionar uma ou mais categorias']) !!}
     </div>
 
     <div class="form-group">
         {!! Form::label('users', 'Membros', ['class' => 'control-label']) !!}
-        {!! Form::select('users[]', $usersForSelect, null, ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'users', 'placeholder' => 'Selecionar um ou mais membros']) !!}
+        {!! Form::select('users[]', $usersForSelect, $members, ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'users', 'placeholder' => 'Selecionar um ou mais membros']) !!}
     </div>
 
     <div class="form-group">

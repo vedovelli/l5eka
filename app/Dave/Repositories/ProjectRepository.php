@@ -2,6 +2,8 @@
 
 use \App\Project as Project;
 use \App\User as User;
+use \App\Section as Section;
+use \App\Page as Page;
 
 use \App\Dave\Repositories\ICategoryRepository as CategoryRepository;
 
@@ -28,43 +30,12 @@ class ProjectRepository implements IProjectRepository
 
     public function store($input)
     {
-        /**
-        * Project
-        */
-        $project = new Project();
-        $project->fill($input);
-        $result = $project->save(); // id
-
-        /**
-        * Dependencia 1: owner
-        */
-        $user = User::find($input['owner']);
-        $user->project()->save($project);
-
-        /**
-        * Dependencia 2: members
-        */
-        foreach ($input['users'] as $value)
-        {
-            $user = User::find($value);
-            $project->members()->save($user);
-        }
-
-        /**
-        * Dependencia 2: members
-        */
-        foreach ($input['categories'] as $value)
-        {
-            $category = $this->categoryRepository->show($value);
-            $project->categories()->save($category);
-        }
-
-        return $result;
+        return $this->save($input);
     }
 
     public function show($id)
     {
-        $project = Project::with('members')->with('categories')->find($id);
+        $project = Project::with(['categories', 'members', 'owner', 'sections'])->find($id);
 
         return $project;
     }
@@ -76,13 +47,7 @@ class ProjectRepository implements IProjectRepository
 
     public function update($input, $id)
     {
-        $project = $this->show($id);
-
-        $project->name = $input['name'];
-
-        $result = $project->save();
-
-        return $result;
+        return $this->save($input, $id);
     }
 
     public function destroy($id)
@@ -97,13 +62,66 @@ class ProjectRepository implements IProjectRepository
     public function usersForSelect()
     {
         $users = User::all();
-        $result = array();
 
-        foreach ($users as $key => $value) {
-            $result[$value->id] = $value->name;
+        return $users->lists('name', 'id');
+    }
+
+    protected function save($input, $id = null)
+    {
+        if(is_null($id))
+        {
+            $project = new Project();
+        } else {
+            $project = $this->show($id);
         }
 
-        return $result;
+        /**
+        * Project
+        */
+        $project->fill($input);
+
+        /**
+        * Dependencia 1: owner
+        */
+        $user = User::find($input['owner']);
+        $user->project()->save($project);
+
+        /**
+        * Dependencia 2: members
+        */
+        $project->members()->sync($input['users']);
+
+        /**
+        * Dependencia 3: categories
+        */
+        $project->categories()->sync($input['categories']);
+
+        $result = $project->save(); // id
+
+        return ['result' => $result, 'project' => $project];
+    }
+
+    public function storeSection($project_id, $input)
+    {
+        $section = new Section();
+        $section->name = $input['name'];
+
+        $project = $this->show($project_id);
+        $project->sections()->save($section);
+
+        return $section->save();
+    }
+
+    public function storePage($section_id, $input)
+    {
+        $page = new Page();
+        $page->title = $input['title'];
+        $page->content = $input['content'];
+
+        $section = Section::find($section_id);
+        $section->pages()->save($page);
+
+        return $page->save();
     }
 
 }

@@ -31,8 +31,6 @@ Gerenciamento de Projetos -
     <div class="row">
         <div class="col-md-12 text-center">{!! $projects->render() !!}</div>
     </div>
-
-    @include('partials.alerts')
 @stop
 
 @section('scripts')

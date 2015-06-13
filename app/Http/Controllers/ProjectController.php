@@ -3,6 +3,7 @@
 use App\Http\Requests\ProjectRequest as Request;
 use App\Dave\Repositories\IProjectRepository as ProjectRepository;
 use App\Dave\Repositories\ICategoryRepository as CategoryRepository;
+use App\Commands\MailCommand;
 
 class ProjectController extends Controller {
 
@@ -32,7 +33,15 @@ class ProjectController extends Controller {
 
         $categoriesForSelect = $this->categoryRepository->categoriesForSelect();
 
-        return view('projects.form')->with(compact('project', 'usersForSelect', 'categoriesForSelect'));
+        $owner = null;
+
+        $categories = null;
+
+        $members = null;
+
+        return view('projects.form')->with(compact(
+            'project', 'usersForSelect', 'categoriesForSelect',
+            'owner','categories','members'));
     }
 
     public function show($id)
@@ -43,10 +52,12 @@ class ProjectController extends Controller {
     {
         $result = $this->projectRepository->store($request->all());
 
-        if(!$result)
+        if(!$result['result'])
         {
             return redirect()->back()->withInput()->withErrors(['Falha ao salvar projeto']);
         }
+
+        $this->dispatch(new MailCommand($result['project'], 'UserAddedToProject'));
 
         return redirect()->back()->with('success', 'Projeto salvo com sucesso!');
     }
@@ -61,7 +72,13 @@ class ProjectController extends Controller {
 
         $categoriesForSelect = $this->categoryRepository->categoriesForSelect();
 
-        return view('projects.form')->with(compact('project', 'usersForSelect', 'categoriesForSelect'));
+        $categories = $project->categories->lists('id');
+
+        $members =  $project->members->lists('id');;
+
+        return view('projects.form')->with(compact(
+            'project', 'usersForSelect', 'categoriesForSelect',
+            'owner','categories','members'));
     }
 
     public function update(Request $request, $id)
@@ -88,5 +105,11 @@ class ProjectController extends Controller {
         return redirect()->back()->with('success', 'Projeto removido com sucesso!');
     }
 
+    public function details($id)
+    {
+        $project = $this->projectRepository->show($id);
+
+        return view('project.details')->with(compact('project'));
+    }
 
 }

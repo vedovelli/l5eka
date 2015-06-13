@@ -57,13 +57,8 @@ class CategoryRepository implements ICategoryRepository
     public function categoriesForSelect()
     {
         $categories = Category::all();
-        $result = array();
 
-        foreach ($categories as $key => $value) {
-            $result[$value->id] = $value->name;
-        }
-
-        return $result;
+        return $categories->lists('name', 'id');
     }
 
 }

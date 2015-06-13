@@ -28,6 +28,18 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('{id}/mostrar',      ['as' => 'project.show',       'uses' => 'ProjectController@show']);
         Route::post('{id}/atualizar',   ['as' => 'project.update',     'uses' => 'ProjectController@update']);
         Route::get('{id}/remover',      ['as' => 'project.destroy',    'uses' => 'ProjectController@destroy']);
+        Route::get('{id}',              ['as' => 'project.details',    'uses' => 'ProjectController@details']);
+    });
+
+    Route::group(['prefix' => 'secoes'], function()
+    {
+        Route::post('{project_id}/criar', ['as' => 'section.store', 'uses' => 'SectionController@store']);
+    });
+
+    Route::group(['prefix' => 'paginas'], function()
+    {
+        Route::get('{project_id}/{section_id}/criar',       ['as' => 'page.create', 'uses' => 'PageController@create']);
+        Route::post('{project_id}/{section_id}/salvar',     ['as' => 'page.store', 'uses' => 'PageController@store']);
     });
 });
 
