@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace App\Dave\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -38,12 +38,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function project()
 	{
-		return $this->hasMany('App\Project');
+		return $this->hasMany('App\Dave\Models\Project');
 	}
 
 	public function projects()
 	{
-		return $this->hasMany('App\Project');
+		return $this->hasMany('App\Dave\Models\Project');
 	}
 
 }

@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace App\Dave\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,6 +11,6 @@ class Category extends Model {
 
     public function projects()
     {
-        return $this->belongsToMany('App\Project');
+        return $this->belongsToMany('App\Dave\Models\Project');
     }
 }

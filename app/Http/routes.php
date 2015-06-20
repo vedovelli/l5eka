@@ -33,13 +33,15 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::group(['prefix' => 'secoes'], function()
     {
-        Route::post('{project_id}/criar', ['as' => 'section.store', 'uses' => 'SectionController@store']);
+        Route::get('{id}/remover',          ['as' => 'section.destroy',    'uses' => 'SectionController@destroy']);
+        Route::post('{project_id}/criar',   ['as' => 'section.store', 'uses' => 'SectionController@store']);
     });
 
     Route::group(['prefix' => 'paginas'], function()
     {
         Route::get('{project_id}/{section_id}/criar',       ['as' => 'page.create', 'uses' => 'PageController@create']);
         Route::post('{project_id}/{section_id}/salvar',     ['as' => 'page.store', 'uses' => 'PageController@store']);
+        Route::get('{id}/detalhes',                         ['as' => 'page.details', 'uses' => 'PageController@details']);
     });
 });
 

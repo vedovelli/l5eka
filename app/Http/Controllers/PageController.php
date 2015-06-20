@@ -2,17 +2,17 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Dave\Repositories\IProjectRepository as ProjectRepository;
+use App\Dave\Repositories\IPageRepository as PageRepository;
 
 use Illuminate\Http\Request;
 
 class PageController extends Controller {
 
-    protected $projectRepository;
+    protected $pageRepository;
 
-    function __construct(ProjectRepository $projectRepository)
+    function __construct(PageRepository $pageRepository)
     {
-        $this->projectRepository = $projectRepository;
+        $this->pageRepository = $pageRepository;
     }
 
     public function create($project_id, $section_id)
@@ -22,9 +22,14 @@ class PageController extends Controller {
 
     public function store($project_id, $section_id)
     {
-        $result = $this->projectRepository->storePage($section_id, \Request::all());
+        $result = $this->pageRepository->store($section_id, \Request::all());
 
         return redirect()->route('project.details', $project_id)->with('success', 'Página criada com sucesso');
+    }
+
+    public function details($id)
+    {
+        return 'alguma coisa no breve futuro!';
     }
 
 

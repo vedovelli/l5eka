@@ -21,7 +21,7 @@ Gerenciamento de Projetos -
         @foreach($projectChunk as $project)
         <div class="col-md-4">
             <div class="dave-project-card">
-                {!! $project->name !!}
+                <a href="{!! route('project.details', $project->id) !!}">{!! $project->name !!}</a>
             </div>
         </div>
         @endforeach

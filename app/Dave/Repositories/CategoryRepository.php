@@ -1,6 +1,6 @@
 <?php namespace App\Dave\Repositories;
 
-use \App\Category as Category;
+use App\Dave\Models\Category as Category;
 
 class CategoryRepository implements ICategoryRepository
 {

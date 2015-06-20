@@ -1,11 +1,11 @@
 <?php namespace App\Dave\Repositories;
 
-use \App\Project as Project;
-use \App\User as User;
-use \App\Section as Section;
-use \App\Page as Page;
+use App\Dave\Models\Project as Project;
+use App\Dave\Models\User as User;
+use App\Dave\Models\Section as Section;
+use App\Dave\Models\Page as Page;
 
-use \App\Dave\Repositories\ICategoryRepository as CategoryRepository;
+use App\Dave\Repositories\ICategoryRepository as CategoryRepository;
 
 class ProjectRepository implements IProjectRepository
 {
@@ -99,29 +99,6 @@ class ProjectRepository implements IProjectRepository
         $result = $project->save(); // id
 
         return ['result' => $result, 'project' => $project];
-    }
-
-    public function storeSection($project_id, $input)
-    {
-        $section = new Section();
-        $section->name = $input['name'];
-
-        $project = $this->show($project_id);
-        $project->sections()->save($section);
-
-        return $section->save();
-    }
-
-    public function storePage($section_id, $input)
-    {
-        $page = new Page();
-        $page->title = $input['title'];
-        $page->content = $input['content'];
-
-        $section = Section::find($section_id);
-        $section->pages()->save($page);
-
-        return $page->save();
     }
 
 }

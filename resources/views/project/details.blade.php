@@ -75,6 +75,15 @@ Detalhes do Projeto {!! $project->name !!}
 
             @foreach($project->sections as $section)
                 <h4 style="margin: 20px 0 20px 0">
+
+                    @if(count($section->pages) == 0)
+                    <small>
+                        <a href="{!! route('section.destroy', $section->id) !!}" class="text-danger">
+                            <i class="fa fa-remove"></i>
+                        </a>
+                    </small>
+                    @endif
+
                     <i class="fa fa-folder-open"></i>
                     {!! $section->name !!}
                     <small><a href="{!! route('page.create', [$project->id, $section->id]) !!}">
@@ -82,6 +91,23 @@ Detalhes do Projeto {!! $project->name !!}
                         pagina
                     </a></small>
                 </h4>
+
+                <ul style="list-style: none;">
+                    @foreach($section->pages as $page)
+                    <li>
+
+                        <small>
+                            <a href="" class="text-danger">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        </small>
+
+                        <a href="{!! route('page.details', $page->id) !!}">{!! $page->title !!}</a>
+                    </li>
+
+                    @endforeach
+                </ul>
+
             @endforeach
 
         </div>
