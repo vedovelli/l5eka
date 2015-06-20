@@ -16,8 +16,18 @@ class ProjectRepository implements IProjectRepository
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function projects($search)
+    public function quantity()
     {
+        return Project::count();
+    }
+
+    public function projects($search, $paginate = true)
+    {
+        if(!$paginate)
+        {
+            return Project::all();
+        }
+
         if(!is_null($search) && !empty($search))
         {
             $projects = Project::where('name', 'like', '%'.$search.'%')->orderBy('created_at', 'DESC')->paginate(6);
@@ -35,7 +45,11 @@ class ProjectRepository implements IProjectRepository
 
     public function show($id)
     {
-        $project = Project::with(['categories', 'members', 'owner', 'sections'])->find($id);
+        // $project = Project::with(['categories', 'members', 'owner', 'sections'])->find($id);
+        $project = \Cache::rememberForever('project.details', function() use ($id)
+        {
+            return Project::with(['categories', 'members', 'owner', 'sections'])->find($id);
+        });
 
         return $project;
     }
@@ -84,7 +98,7 @@ class ProjectRepository implements IProjectRepository
         * Dependencia 1: owner
         */
         $user = User::find($input['owner']);
-        $user->project()->save($project);
+        $user->owns()->save($project);
 
         /**
         * Dependencia 2: members

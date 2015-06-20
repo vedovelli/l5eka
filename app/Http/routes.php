@@ -1,5 +1,15 @@
 <?php
 
+Route::get('ajax', function()
+{
+    return view('ajax');
+});
+
+Route::group(['prefix' => 'api'], function()
+{
+    Route::get('projects', ['uses' => 'ApiController@projects']);
+});
+
 Route::group(['middleware' => 'auth'], function(){
 
     Route::get('dashboard', ['as' => 'dashboard.index', 'uses' => 'DashboardController@index']);
@@ -31,18 +41,24 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('{id}',              ['as' => 'project.details',    'uses' => 'ProjectController@details']);
     });
 
+    Route::group(['prefix' => 'usuarios'], function()
+    {
+        Route::get('{id}/detalhes/project/{project_id}',     ['as' => 'user.details',        'uses' => 'UserController@details']);
+    });
+
     Route::group(['prefix' => 'secoes'], function()
     {
         Route::get('{id}/remover',          ['as' => 'section.destroy',    'uses' => 'SectionController@destroy']);
         Route::post('{project_id}/criar',   ['as' => 'section.store', 'uses' => 'SectionController@store']);
     });
 
-    Route::group(['prefix' => 'paginas'], function()
+    Route::group(['prefix' => 'projeto'], function()
     {
-        Route::get('{project_id}/{section_id}/criar',       ['as' => 'page.create', 'uses' => 'PageController@create']);
-        Route::post('{project_id}/{section_id}/salvar',     ['as' => 'page.store', 'uses' => 'PageController@store']);
-        Route::get('{id}/detalhes',                         ['as' => 'page.details', 'uses' => 'PageController@details']);
+        Route::get('{project_id}/secao/{section_id}/criar',       ['as' => 'page.create', 'uses' => 'PageController@create']);
+        Route::post('{project_id}/secao/{section_id}/salvar',     ['as' => 'page.store', 'uses' => 'PageController@store']);
+        Route::get('{project_id}/pagina/{id}/detalhes',           ['as' => 'page.details', 'uses' => 'PageController@details']);
     });
+
 });
 
 

@@ -27,9 +27,11 @@ class PageController extends Controller {
         return redirect()->route('project.details', $project_id)->with('success', 'Página criada com sucesso');
     }
 
-    public function details($id)
+    public function details($id, $projectId)
     {
-        return 'alguma coisa no breve futuro!';
+        $page = $this->pageRepository->show($id);
+
+        return view('pages.details')->with(compact('page', 'projectId'));
     }
 
 

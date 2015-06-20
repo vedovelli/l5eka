@@ -36,14 +36,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return date('d/m/Y H:i:s', strtotime($value));
 	}
 
-	public function project()
+	public function owns()
 	{
 		return $this->hasMany('App\Dave\Models\Project');
 	}
 
-	public function projects()
+	public function isMemberOf()
 	{
-		return $this->hasMany('App\Dave\Models\Project');
+		return $this->belongsToMany('App\Dave\Models\Project');
 	}
 
 }

@@ -20,7 +20,8 @@ class PageRepository implements IPageRepository
 
     public function show($id)
     {
-
+        
+        return Page::find($id);
     }
 
     public function store($sectionId, $input)

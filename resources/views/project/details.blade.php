@@ -5,6 +5,11 @@ Detalhes do Projeto {!! $project->name !!}
 @stop
 
 @section('content')
+{{-- 
+Quantidade de projetos: {!! $quantity !!}
+
+{!! $markup !!}
+ --}}
 {!! Form::open(['route' => ['section.store', $project->id]]) !!}
     <div class="modal fade" id="modalSection">
       <div class="modal-dialog">
@@ -102,7 +107,7 @@ Detalhes do Projeto {!! $project->name !!}
                             </a>
                         </small>
 
-                        <a href="{!! route('page.details', $page->id) !!}">{!! $page->title !!}</a>
+                        <a href="{!! route('page.details', [$page->id, $project->id]) !!}">{!! $page->title !!}</a>
                     </li>
 
                     @endforeach
@@ -115,12 +120,12 @@ Detalhes do Projeto {!! $project->name !!}
             <div class="well">
                 <p><strong>Líder</strong></p>
                 <ul>
-                    <li>{!! $project->owner->name !!}</li>
+                    <li><a href="{!! route('user.details', [$project->owner->id, $project->id]) !!}">{!! $project->owner->name !!}</a></li>
                 </ul>
                 <p><strong>Membros</strong></p>
                 <ul>
                     @foreach($project->members as $member)
-                    <li>{!! $member->name !!}</li>
+                    <li><a href="{!! route('user.details', [$member->id, $project->id]) !!}">{!! $member->name !!}</a></li>
                     @endforeach
                 </ul>
             </div>

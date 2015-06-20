@@ -12,7 +12,8 @@ Gerenciamento de Projetos -
         Projetos <small><a href="{!! route('project.create') !!}"><i class="fa fa-plus"></i> projeto</a></small>
     </h1>
 
-    @include('partials.search')
+    {{-- @include('partials.search') --}}
+    {!! Form::search($search) !!}
     @include('partials.alerts')
 
     @foreach(array_chunk($projects->items(), 3) as $projectChunk)
